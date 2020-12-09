@@ -1,0 +1,39 @@
+<template>
+    <div class="home">
+        <van-nav-bar class="title" title="首页"/>
+        <!-- 这里用来存放店里不同的导航进行显示不同的界面 -->
+        <van-tabs v-model="active">
+            <router-view />
+        </van-tabs>
+        <van-tabbar v-model="active" class="navFooter">
+            <van-tabbar-item icon="home-o">首页</van-tabbar-item>
+            <van-tabbar-item icon="hot-o">美拍</van-tabbar-item>
+            <van-tabbar-item icon="coupon-o">攻略</van-tabbar-item>
+            <van-tabbar-item icon="user-o">我的</van-tabbar-item>
+        </van-tabbar>
+    </div>
+</template>
+
+<script>
+export default {
+    created(){
+        // this.$axios.get('/meipai/all').then(res => {
+        //     console.log(res);
+        // })
+    },
+    data(){
+        return {
+            active: 0,
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+    .home{
+        height: 100vh;
+        background-image: url(../assets/image01.jpg);
+        background-size: cover;
+        background-position: center center;
+    }
+</style>
