@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <van-nav-bar class="title" title="首页"/>
+        <van-nav-bar class="title" title="首页" fixed/>
         <!-- 这里用来存放店里不同的导航进行显示不同的界面 -->
         <van-tabs v-model="active">
             <router-view />
@@ -31,9 +31,8 @@ export default {
 
 <style lang="scss">
     .home{
-        height: 100vh;
         background-image: url(../assets/image01.jpg);
         background-size: cover;
-        background-position: center center;
+        background-attachment: fixed;
     }
 </style>

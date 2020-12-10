@@ -6,7 +6,7 @@
 
 <style lang="scss">
   .title{
-      background-color: rgba(255, 255, 255, 0.6);
+      background-color: rgba(255, 255, 255, 0.8);
       border: 0;
       .van-nav-bar__title{
           font-size: 18px;
