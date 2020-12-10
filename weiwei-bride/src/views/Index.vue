@@ -15,7 +15,8 @@
         </van-grid>
         <div class="activaty">
             <div class="wrap" v-for="item in activity" :key='item.hid'>
-                <img :src="item.h_photos">
+                <img v-lazy:background-image='item.h_photos'>
+                <!-- <div class="image" v-lazy:background-image='item.h_photos'></div> -->
                 <span class="title">{{ item.h_title }}</span>
             </div>
         </div>
@@ -67,32 +68,35 @@ export default {
 
 <style lang="scss">
 .index{
-    margin-top: 46px;
-    padding-bottom: 50px;
     .van-swipe__track{
-        height: 220px !important;
+        height: 6rem !important;
         .van-swipe-item{
             overflow: hidden;
-            border: 10px solid rgba(255, 255, 255, 0.6);
+            border: 10px solid transparent;
             img{
                 width: 100%;
-                height: 220px;
+                height: 100%;
                 background-position: center center;
                 background-size: cover;
             }
         }
     }
     .van-grid{
-        // top: 5px;
         .van-grid-item__content{
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: transparent;
         }
         .image_style{
             padding: 0;
             width: 100%;
-            height: 7vh;
+            height: 1.5rem;
             overflow: hidden;
             border-radius: 5px;
+            .van-image{
+                width: 100%;
+                img{
+                    width: 100%;
+                }
+            }
         }
         .style_text{
             margin-top: 10px;
@@ -101,19 +105,29 @@ export default {
     }
     .activaty{
         column-count: 2;
-        column-gap: 15px;
-        width: 90%;
-        margin: 1em auto;
+        column-gap: 0.2rem;
+        width: 9.5rem;
+        margin: 0 auto;
+        padding-top: 10px;
+        
         .wrap{
-            box-shadow: 0 0 10px #000;
+            box-shadow: 2px 2px 0 rgb(128, 184, 236);
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.7);
+            // background-color: rgba(255, 255, 255, 0.7);
             overflow: hidden;
-            margin-bottom: 20px;
-            width: 100%;
+            margin-bottom: 10px;
+            background-size: 100%;
+            /* 防止多列布局，分页媒体和多区域上下文中的意外中断 */
+            break-inside: avoid;
+            width: 4.6rem;
             img{
                 width: 100%;
-                // border-radius: 5px;
+                height: 5rem;
+                box-sizing: border-box;
+                background-size: cover;
+                background-position: center center;
+                padding: 10px;
+                border:10px solid #fff;
             }
             span{
                 display: inline-block;
@@ -123,6 +137,11 @@ export default {
                 line-height: 17px;
                 color: #242424;
                 font-weight: 600;
+                text-overflow: ellipsis;/*设置隐藏部分为省略号*/
+                overflow: hidden;/*设置隐藏*/
+                display: -webkit-box;
+                -webkit-line-clamp: 2;/*设置显示行数，此处为2行，可设置其他数字*/
+                -webkit-box-orient: vertical;
             }
         }
         
