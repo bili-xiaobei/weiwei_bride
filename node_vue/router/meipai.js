@@ -7,7 +7,7 @@ const router = express.Router();
 
 // 获取美拍的数据
 router.get('/all', (req, res) => {
-    mysql.query('select hid,h_date,h_title,h_browse,h_fabulou,h_collection,h_photo,h_user_id from hs_meipai', (err, result) => {
+    mysql.query('select hid,h_date,h_title,h_browse,h_fabulou,h_collection,h_photo,h_user_id,h_goods_id from hs_meipai', (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({
@@ -26,7 +26,11 @@ router.get('/all', (req, res) => {
     })
 })
 
+// 通过 美拍中返回的用户 id 来访问用户详情
+// 可以访问  user 路由中的 ' /alluser/:id ' 来进行访问
 
+// 通过 美拍中返回的商品 id 来访问商品详情
+// 可以访问  home 路由中的 ' /index/activity/:id ' 来进行访问
 
 
 

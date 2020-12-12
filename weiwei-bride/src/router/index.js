@@ -11,10 +11,10 @@ const routes = [{
   children: [{
     path: '/index',
     component: () => import( /* webpackChunkName:'index' */ '../views/Index.vue')
-  }, {
-    path: '/banner_goods',
-    component: () => import( /* webpackChunkName: 'banner_goods' */ '../views/BannerGood.vue')
   }]
+}, {
+  path: '/banner_goods/:id',
+  component: () => import( /* webpackChunkName: 'banner_goods' */ '../views/BannerGood.vue')
 }] 
 
 const router = new VueRouter({

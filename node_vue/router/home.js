@@ -7,7 +7,7 @@ const router = express.Router();
 
 // 获取首页中 banner 图片
 router.get('/index/banner', (req, res) => {
-    mysql.query('select hid,h_photo from hs_banner_style where h_style=1', (err, result) => {
+    mysql.query('select hid,h_photo from hs_home_banner', (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({
@@ -26,9 +26,9 @@ router.get('/index/banner', (req, res) => {
     })
 })
 
-// 获取首页中 banner 图片 以及要链接的商品的 id
+// 获取首页中 banner 图片 以及要链接的商品
 router.get('/index/banner/:index', (req, res) => {
-    mysql.query('select h_goods_id from hs_banner_style where hid=?', [req.params.index], (err, result) => {
+    mysql.query('select * from hs_goods where hid=(select h_goods_id from hs_home_banner where hid=?)', [req.params.index], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({
@@ -48,9 +48,10 @@ router.get('/index/banner/:index', (req, res) => {
     })
 })
 
+
 // 获取风格的图片
 router.get('/index/style', (req, res) => {
-    mysql.query('select hid,h_photo from hs_banner_style where h_style=2', (err, result) => {
+    mysql.query('select hid,h_photo from hs_home_style', (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({
@@ -93,7 +94,7 @@ router.get('/index/style/:index', (req, res) => {
 
 // 获取参与活动的商品
 router.get('/index/activity', (req, res) => {
-    mysql.query('select hid,h_title,h_price,h_photos from hs_goods where h_style>1 and h_style<4', (err, result) => {
+    mysql.query('select hid,h_title,h_price,h_photos from hs_goods where hid<=10', (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({

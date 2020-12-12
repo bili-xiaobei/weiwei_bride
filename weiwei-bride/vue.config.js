@@ -9,5 +9,13 @@ module.exports = {
                 // }
             }
         }
-    }
+    },
+    css: {
+        loaderOptions: {
+            // 此文件为主题切换文件
+            sass: {
+                prependData: `@import "./public/css/_variable.scss";`,
+            },
+        },
+    },
 }

@@ -4,9 +4,25 @@
   </div>
 </template>
 
+<script>
+export default {
+  created(){
+    
+  },
+    data(){
+      return {
+        
+      }
+    },
+    methods: {
+    }
+}
+</script>
+
 <style lang="scss">
   .title{
-      background-color: rgba(255, 255, 255, 0.8);
+      // background-color: rgba(255, 255, 255, 0.8);
+      background-color: $fontColor;
       border: 0;
       .van-nav-bar__title{
           font-size: 18px;
@@ -24,5 +40,8 @@
   .van-tabs__wrap{
       height: 0 !important;
       background-color: transparent;
+  }
+  @function aa($n){
+    @return $n * 2;
   }
 </style>

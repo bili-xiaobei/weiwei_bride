@@ -1,0 +1,14 @@
+// 主题色
+$bgColor:var(--backgroundColor,#7d4bce);
+// 字体颜色
+$fontColor:var(--fonntColor,rgb(0,0,0));
+$bgmColor:var(--backgroundMColor,rgb(238,238,238));
+$tableColor:var(--tableColor,rgb(218,218,218));
+$borderColor:var(--borderColor,rgb(238,238,238));
+$tablesColor:var(--tablesColor,rgb(255,255,255));
+$inputColor:var(--inputColor,rgb(255,255,255));
+
+//主要的一步：
+:export {
+    navColor: $bgColor;
+}

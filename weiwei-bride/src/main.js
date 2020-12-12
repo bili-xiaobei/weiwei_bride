@@ -25,6 +25,13 @@ import {
   SwipeItem,
   Image as VanImage,
   Grid, GridItem,
+  PullRefresh,
+  Search,
+  GoodsAction, GoodsActionIcon, GoodsActionButton,
+  SwitchCell,
+  Popup,
+  Cell,
+  Picker,
 
 } from 'vant';
 
@@ -40,6 +47,15 @@ Vue.use(SwipeItem);
 Vue.use(VanImage);
 Vue.use(Grid);
 Vue.use(GridItem);
+Vue.use(PullRefresh);
+Vue.use(Search);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
+Vue.use(SwitchCell);
+Vue.use(Popup);
+Vue.use(Cell);
+Vue.use(Picker);
 
 Vue.use(Lazyload, {
   lazyComponent: true,
