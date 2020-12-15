@@ -9,17 +9,22 @@
                 <meipai />
             </van-tab>
             <van-tab>
-                <strategy />
+                <shop-cart />
             </van-tab>
             <van-tab>
                 <my />
             </van-tab>
         </van-tabs>
         <div v-show="topShow" class="go_top" @click="goTop"></div>
-        <van-tabbar v-model="active" class="navFooter" :active-color="navActive" :inactive-color="navInactive">
+        <van-tabbar
+            v-model="active"
+            class="navFooter"
+            :active-color="navActive"
+            :inactive-color="navInactive"
+        >
             <van-tabbar-item icon="home-o">首页</van-tabbar-item>
             <van-tabbar-item icon="hot-o">美拍</van-tabbar-item>
-            <van-tabbar-item icon="coupon-o">发现</van-tabbar-item>
+            <van-tabbar-item icon="shopping-cart-o">购物车</van-tabbar-item>
             <van-tabbar-item icon="user-o">我的</van-tabbar-item>
         </van-tabbar>
     </div>
@@ -27,9 +32,10 @@
 
 <script>
 import Index from "./Index.vue";
-import Maipei from "./Meipai.vue";
+import Meipai from "./Meipai.vue";
 import Strategy from "./Strategy.vue";
 import My from "./My.vue";
+import ShopCart from "./ShopCart.vue";
 import style from "../../public/css/_variable.scss";
 export default {
     created() {
@@ -37,6 +43,7 @@ export default {
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll); // 监听滚动的高度
+        this.judge();
     },
     data() {
         return {
@@ -47,10 +54,11 @@ export default {
         };
     },
     components: {
-        Index: Index,
-        Maipei: Maipei,
-        Strategy: Strategy,
-        My: My,
+        Index,
+        Meipai,
+        Strategy,
+        My,
+        ShopCart
     },
     methods: {
         // 监控页面滚动高度
@@ -77,6 +85,44 @@ export default {
                     clearInterval(timeTop);
                 }
             }, 10);
+        },
+        // 通过计算来进行页面的跳转
+        judge() {
+            let startX = 0;
+            let startY = 0;
+            let endX = 0;
+            let endY = 0;
+            // 获取要触发事件的标签
+            let body = document.body || document.documentElement;
+            body.addEventListener(
+                "touchstart",
+                (el) => {
+                    // touches 点击屏幕时
+                    startX = parseInt(el.touches[0].pageX);
+                    startY = parseInt(el.touches[0].pageY);
+                    // console.log(startX, startY)
+                },
+                false
+            );
+            body.addEventListener(
+                "touchend",
+                (el) => {
+                    // changedTouches 离开屏幕时
+                    endX = parseInt(el.changedTouches[0].pageX);
+                    endY = parseInt(el.changedTouches[0].pageY);
+                    // console.log(endX, endY);
+                    if (endX - startX > 150) {
+                        // console.log('向右滑动')
+                        if (this.active <= 0) return;
+                        else this.active--;
+                    } else if (startX - endX > 150) {
+                        // console.log('向左滑动')
+                        if (this.active >= 3) return;
+                        else this.active++;
+                    }
+                },
+                false
+            );
         },
     },
 };
@@ -124,7 +170,7 @@ export default {
     }
     .navFooter {
         background-color: $bgColor;
-        .van-tabbar-item--active{
+        .van-tabbar-item--active {
             background-color: rgba(255, 255, 255, 0.5);
         }
     }

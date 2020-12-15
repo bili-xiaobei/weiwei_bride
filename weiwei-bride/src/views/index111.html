@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+        }
+
+        #overflowTest {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            width: 80%;
+            height: 100%;
+            overflow: auto;
+            border: 1px solid #ccc;
+        }
+
+        /* 针对缺省样式 (必须的) */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 0px;
+        }
+
+        /* 滚动条的滑轨背景颜色 */
+        /* ::-webkit-scrollbar-track {
+            background-color: gray;
+            border-radius: 5px;
+        } */
+
+        /* 滑块颜色 */
+        ::-webkit-scrollbar-thumb {
+            /* background-color: red; */
+            background-color: transparent;
+            border-radius: 20px;
+        }
+
+        /*内层轨道的颜色*/
+        ::-webkit-scrollbar-track-piece {
+            /* background-color: gray; */
+            background-color: transparent;
+            border-radius: 5px;
+        }
+
+        /* 滑轨两头的监听按钮颜色 */
+        /* ::-webkit-scrollbar-button {
+            background-color: gray;
+            width: 0;
+            height: 0;
+        } */
+
+        /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+        ::-webkit-scrollbar-corner {
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="overflowTest">
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+        <p>这里的文本内容是可以滚动的，滚动条方向是垂直方向。</p>
+    </div>
+    <script type="text/javascript">
+        let winHeight = document.documentElement.clientHeight; //视口大小
+        var listContent = document.getElementById('overflowTest');
+
+        listContent.style.height = 500 + 'px' //调整上拉加载框高度
+    </script>
+</body>
+
+</html>

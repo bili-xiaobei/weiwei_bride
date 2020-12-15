@@ -33,8 +33,13 @@ import {
   Cell,
   Picker,
   Icon,
+  Card,
+  SwipeCell,
+  Stepper,
 } from 'vant';
 
+
+Vue.use(SwipeCell);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);
 Vue.use(Tab);
@@ -57,6 +62,8 @@ Vue.use(Popup);
 Vue.use(Cell);
 Vue.use(Picker);
 Vue.use(Icon);
+Vue.use(Card);
+Vue.use(Stepper);
 
 Vue.use(Lazyload, {
   lazyComponent: true,

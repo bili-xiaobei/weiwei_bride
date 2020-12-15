@@ -7,7 +7,7 @@ const router = express.Router();
 
 // 获取美拍的数据
 router.get('/all', (req, res) => {
-    mysql.query('select hid,h_date,h_title,h_browse,h_fabulou,h_collection,h_photo,h_user_id,h_goods_id from hs_meipai', (err, result) => {
+    mysql.query('select hid,h_date,h_title,h_browse,h_fabulou,h_collection,h_photo,h_user_id,h_goods_id,h_author,u.avatar from hs_meipai,hs_user u where u.uid=h_user_id', (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({
