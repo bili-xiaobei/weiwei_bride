@@ -67,7 +67,26 @@ router.get('/coupon', (req, res) => {
     })
 })
 
-
+// 获取所有的动态
+router.get('/dynamic', (req, res) => {
+    mysql.query('select m.hid,m.h_user_id,m.h_photo,m.h_content,m.h_title,m.h_browse,m.h_fabulou,u.username,u.avatar from hs_mydynamic m,hs_user u where m.h_user_id=u.uid', (err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            res.send({
+                data: result,
+                meta: {
+                    code:200,
+                    msg: '获取动态列表成功'
+                }
+            })
+        } else {
+            res.send({
+                code: 400,
+                msg: '获取动态列表失败'
+            })
+        }
+    })
+})
 
 
 

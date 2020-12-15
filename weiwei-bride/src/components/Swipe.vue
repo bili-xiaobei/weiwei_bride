@@ -1,5 +1,5 @@
 <template>
-    <van-swipe :autoplay="3000" indicator-color="#7232dd">
+    <van-swipe :autoplay="3000" :indicator-color="fontColor">
         <van-swipe-item
             v-for="(image, index) in good_data.h_photos"
             :key="index"
@@ -10,7 +10,13 @@
 </template>
 
 <script>
+import style from '../../public/css/_variable.scss';
 export default {
-    props:['good_data']
+    props:['good_data'],
+    data(){
+        return{
+            fontColor: style.navColor
+        }
+    }
 };
 </script>

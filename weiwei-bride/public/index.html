@@ -9,11 +9,11 @@
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title><%= htmlWebpackPlugin.options.title %></title>
-  <!-- 设置 HTML 的 font-size 属性 的大小 -->
   <script>
     // 监听界面横竖屏监听
     function resize() {
       var Root = document.documentElement;
+      // 设置 HTML 的 font-size 属性 的大小
       Root.style.fontSize = window.innerWidth / 10 + 'px';
     }
     window.onresize = function () {

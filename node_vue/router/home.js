@@ -94,7 +94,7 @@ router.get('/index/style/:index', (req, res) => {
 
 // 获取参与活动的商品
 router.get('/index/activity', (req, res) => {
-    mysql.query('select hid,h_title,h_price,h_photos from hs_goods where hid<=10', (err, result) => {
+    mysql.query('select hid,h_title,h_price,h_photos from hs_goods where hid<=24', (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({

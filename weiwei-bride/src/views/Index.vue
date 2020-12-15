@@ -14,7 +14,7 @@
             @refresh="onRefresh"
             class="top55"
         >
-            <van-swipe :autoplay="3000">
+            <van-swipe :autoplay="3000" :indicator-color="indicator_color">
                 <van-swipe-item v-for="(image, index) in images" :key="index">
                     <router-link :to="'/banner_goods/' + image.hid">
                         <img
@@ -24,6 +24,7 @@
                     </router-link>
                 </van-swipe-item>
             </van-swipe>
+            <span class="more_style"><router-link to="/">查看更多 >></router-link></span>
             <van-grid :column-num="4">
                 <van-grid-item
                     v-for="(item, index) in styleImages"
@@ -35,14 +36,19 @@
                     <p class="style_text">{{ style_title[index] }}</p>
                 </van-grid-item>
             </van-grid>
-
+            <span class="more_style"><router-link to="/">查看更多 >></router-link></span>
             <!-- 活动 -->
             <div class="activaty">
                 <div class="wrap" v-for="item in activity" :key="item.hid">
-                    <img v-lazy:background-image="item.h_photos" />
+                    <img v-lazy="item.h_photos" />
                     <!-- <div class="image" v-lazy:background-image='item.h_photos'></div> -->
                     <span class="good_title">{{ item.h_title }}</span>
-                    <span class="price">¥ <span class="price_color">{{ item.h_price }}</span></span>
+                    <span class="price"
+                        >¥
+                        <span class="price_color">{{
+                            item.h_price
+                        }}</span></span
+                    >
                 </div>
             </div>
         </van-pull-refresh>
@@ -50,6 +56,7 @@
 </template>
 
 <script>
+import style from "../../public/css/_variable.scss";
 export default {
     created() {
         this.getBannerImages();
@@ -64,6 +71,7 @@ export default {
             activity: [],
             isLoading: false,
             value: "",
+            indicator_color: style.navColor,
         };
     },
     methods: {
@@ -102,36 +110,34 @@ export default {
 
 <style lang="scss">
 .index {
-    i{
+    i {
         color: $bgColor;
     }
-    .flxed{
-        position:fixed;
+    .flxed {
+        position: fixed;
         width: 10rem;
         z-index: 100;
-        background-color: #000;
+        // background-color: #000;
     }
-    .van-search{
-        background-color: rgba(255, 255, 255, 0.7) !important;
-        .van-search__content--round{
-            background-color: rgba(255, 255, 255, 0.6) !important;
-            .van-cell--borderless ::placeholder{
+    .van-search {
+        background-color: $bgColor !important;
+        .van-field__control {
+            color: $bgColor;
+        }
+        .van-search__content--round {
+            // background-color:$indexBGC !important;
+            .van-cell--borderless ::placeholder {
                 color: $bgColor;
                 font-size: 14px !important;
                 font-weight: 600;
             }
         }
     }
-    .top55{
+    .top55 {
         padding-top: 55px;
-        .van-pull-refresh__text,
-        .van-loading,
-        .van-loading__text{
-            color: $bgColor !important;
-        }
     }
     .van-swipe__track {
-        height: 5.5rem !important;
+        height: 6rem !important;
         // margin-top: 55px;
         .van-swipe-item {
             overflow: hidden;
@@ -144,62 +150,96 @@ export default {
             }
         }
     }
+    // 更多
+    .more_style{
+        display: block;
+        width: 10rem;
+        padding-right: 20px;
+        text-align: right;
+        font-size: 14px;
+        border-top: 2px solid $bgColor;
+        padding-top: 10px;
+        a{
+            color: $bgColor !important;
+        }
+    }
+    // 风格
+    .van-hairline--top::after{
+        border:0 !important;
+    }
     .van-grid {
-        .van-grid-item__content {
-            background-color: transparent;
+        padding-bottom: 15px;
+        .van-grid-item {
+            // background-color: transparent;
+            padding: 10px 10px 0;
+            .van-grid-item__content{
+                padding: 0px;
+                border-radius: 5px;
+            } 
+            .style_text {
+                font-size: 0.4rem;
+                position: absolute;
+                background-color: $bgColorA;
+                bottom: 0px;
+                display: inline-block;
+                width: 100%;
+                line-height: 0.8rem;
+                text-align: center;
+                color: #fff;
+                border-radius: 0 0 5px 5px;
+            }
         }
         .image_style {
             padding: 0;
             width: 100%;
-            height: 1.5rem;
+            height: 2.5rem;
             overflow: hidden;
             border-radius: 5px;
             .van-image {
                 width: 100%;
-                img {
-                    width: 100%;
-                }
+                // img {
+                //     // width: 100%;
+                // }
             }
-        }
-        .style_text {
-            margin-top: 10px;
-            font-size: 14px;
         }
     }
     .activaty {
         column-count: 2;
-        column-gap: 0.2rem;
-        width: 9.5rem;
+        column-gap: 0.3rem;
+        width: 9rem;
         margin: 0 auto;
         padding-top: 10px;
+        // 单个活动商品
         .wrap {
-            box-shadow: 2px 2px 0 $bgColor;
+            // box-shadow: 0px 2px 5px $bgColor;
             border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.7);
+            // background-color: rgba(255, 255, 255, 0.7);
+            // background-color: $bgColor;
+            border: 2px solid $bgColor;
             overflow: hidden;
             margin-bottom: 10px;
             background-size: 100%;
             /* 防止多列布局，分页媒体和多区域上下文中的意外中断 */
             break-inside: avoid;
-            width: 4.6rem;
-            .price{
+            width: 4.4rem;
+            .price {
                 display: inline-block;
                 padding: 0 10px 10px;
                 font-size: 14px;
-                .price_color{
+                .price_color {
                     color: $bgColor;
-                    font-size: 20px;
+                    font-size: 22px;
                     margin-left: -3px;
                 }
             }
             img {
                 width: 100%;
-                height: 6rem;
+                // height: 5rem;
                 box-sizing: border-box;
                 background-size: cover;
                 background-position: center center;
-                padding: 10px;
-                border: 10px solid #fff;
+                // padding: 10px;
+                border: 10px solid transparent;
             }
             .good_title {
                 display: inline-block;
@@ -207,9 +247,9 @@ export default {
                 // margin-top: -100px;
                 background-color: transparent;
                 // background-color: rgba(255, 255, 255, .4);
-                font-size: 13px;
-                line-height: 17px;
-                color: #242424;
+                font-size: 0.36rem;
+                line-height: 0.45rem;
+                color: rgb(80, 80, 80);
                 font-weight: 600;
                 text-overflow: ellipsis; /*设置隐藏部分为省略号*/
                 overflow: hidden; /*设置隐藏*/

@@ -32,7 +32,7 @@ import {
   Popup,
   Cell,
   Picker,
-
+  Icon,
 } from 'vant';
 
 Vue.use(Tabbar);
@@ -56,6 +56,7 @@ Vue.use(SwitchCell);
 Vue.use(Popup);
 Vue.use(Cell);
 Vue.use(Picker);
+Vue.use(Icon);
 
 Vue.use(Lazyload, {
   lazyComponent: true,

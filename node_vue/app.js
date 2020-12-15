@@ -5,6 +5,7 @@ const indexRouter = require('./router/home');
 const meipaiRouter = require('./router/meipai');
 const strategyRouter = require('./router/strategy');
 const myRouter = require('./router/my');
+const goodsRouter = require('./router/goods');
 var app = express();
 
 app.use('/api/user', userRouter)
@@ -12,6 +13,7 @@ app.use('/api/home', indexRouter)
 app.use('/api/meipai', meipaiRouter)
 app.use('/api/strategy', strategyRouter)
 app.use('/api/my', myRouter)
+app.use('/api/goods', goodsRouter)
 
 app.use(bodyParser.urlencoded({
     extended: false

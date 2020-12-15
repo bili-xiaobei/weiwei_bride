@@ -2,28 +2,18 @@
     <div class="banner_good">
         <van-nav-bar
             class="title"
-            title="商品详情"
             fixed
             left-text="返回"
-            right-text=""
             left-arrow
             @click-left="onClickLeft"
-            @click-right="onClickRight"
         />
         <div class="content">
             <van-pull-refresh
                 v-model="isLoading"
                 success-text="刷新成功"
                 @refresh="onRefresh">
-                <!-- <van-swipe :autoplay="3000" indicator-color="#7232dd">
-                    <van-swipe-item
-                        v-for="(image, index) in good_data.h_photos"
-                        :key="index">
-                        <img v-lazy:background-image="image" class="image" />
-                    </van-swipe-item>
-                </van-swipe> -->
                 <swipe :good_data="good_data"/>
-                <span class="price"><span>lkdsfklsdjfklg</span></span>
+                <span class="price">¥<span>{{ good_data.h_price }} <span class="delete">¥{{ parseInt(good_data.h_price * 1.3) }}</span></span></span>
                 <good-title :good_title="good_data.h_title" />
             </van-pull-refresh>
         </div>
@@ -84,19 +74,23 @@ export default {
 };
 </script>
 
-<style lang='scss'>
+<style lang='scss'> 
 .banner_good {
     i,
     .van-nav-bar__text,
     .van-nav-bar__title{
         color:$bgColor !important;
     }
+    .van-hairline--bottom::after{
+        border:0 !important;
+    }
     .title{
-        color:$bgColor !important;
+        color: transparent !important;
     }
     // padding: 10px;
     .van-swipe-item {
         border-radius: 3px;
+        height: 12rem;
         // overflow: hidden;
         .image {
             background-repeat: no-repeat;
@@ -108,8 +102,24 @@ export default {
     }
     .content{
         // height: 10rem;
-        padding-top: 45px;
+        // padding-top: 45px;
         padding-bottom: 200px;
+        .price{
+            background-color:$bgColor;
+            display: inline-block;
+            width: 100%;
+            line-height: 40px;
+            padding: 0 20px;
+            color: #fff;
+            span{
+                font-size: 24px;
+                margin-left: 5px;
+            }
+            .delete{
+                font-size: 16px;
+                text-decoration:line-through;
+            }
+        }
     }
 }
 </style>
