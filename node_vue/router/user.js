@@ -5,8 +5,13 @@ const bp = require('body-parser');
 
 const router = express.Router();
 
+router.use(bp.urlencoded({
+    extended: false
+}))
+
+
 // 登录接口
-router.post('/login', bp, (req, res) => {
+router.post('/login', (req, res) => {
     mysql.query('select uid,username,password,token,sex,phone,nickname,qq,avatar from hs_user where username=? and password=?', [req.body.username, MD5(req.body.password)], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
@@ -27,7 +32,7 @@ router.post('/login', bp, (req, res) => {
 })
 
 // 注册接口
-router.post('/register', bp, (req, res) => {
+router.post('/register', (req, res) => {
     let username = req.body.username;
     let password = MD5(req.body.password);
     let token = MD5(req.body.username);

@@ -13,7 +13,7 @@
             </header>
             <div class="h_title">{{ item.h_title }}</div>
             <div>
-                <img class="img" v-lazy="item.h_photo.split('---')[0]" alt="" />
+                <img class="img" :src="item.h_photo.split('---')[0]" alt="" />
             </div>
             <div class="browse_fabulou">
                 <div><van-icon name="eye-o" />{{ item.h_browse }}</div>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-    created() {
+    mounted() {
         this.getStyleData();
     },
     data() {
