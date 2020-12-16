@@ -1,5 +1,5 @@
 <template>
-    <div id="login">
+    <div class="login">
         <div>
             <mt-header title="登录" fixed>
               <router-link to="/" slot="left">
@@ -63,19 +63,19 @@
     </div>
 </template>
 <style lang="scss">
-#login {
+.login {
     width: 10rem;
     min-height: 100vh;
     // background-image: url('../assets/indexBGM.jpg');
     background-size: cover;
     background-color: rgba(202, 202, 202, 0.7);
     .mint-button--default{
-      color: #000 !important;
+      color: #fff !important;
     }
     .mint-header {
         background-color: $bgColor;
         height: 46px;
-        color: #242424;
+        color: #fff;
     }
     .mint-header-title {
         font-size: 18px !important;
@@ -93,17 +93,17 @@
         padding-bottom: 3rem;
         .content {
             img {
-                width: 0.6rem;
+                width: 20px;
                 position: absolute;
-                margin-top: -1.3rem;
+                margin-top: -45px;
                 // left: 10px;
                 // transform: translateY(-50%);
             }
             .user_img {
-                width: 0.7rem;
+                width: 24px;
             }
             .mint-field-core {
-                margin-left: 0.7rem;
+                margin-left: 20px;
                 background-color: transparent;
             }
         }
@@ -117,6 +117,9 @@
         background-color: $bgColor;
         color: #fff;
         font-weight: 900;
+        .mint-button-text{
+            color: #fff;
+        }
     }
     .registerDiv {
       margin-top: 10px;
@@ -133,8 +136,8 @@ export default {
     data() {
         return {
             //用户名、密码
-            username: "13213232",
-            password: "12313212",
+            username: "987654321",
+            password: "123456789",
             //用户名、密码的状态
             usernameState: "",
             passwordState: "",
@@ -148,11 +151,11 @@ export default {
                 this.usernameState = "success";
                 return true;
             } else {
-                // this.$toast({
-                //     message: "用户名错误",
-                //     position: "middle",
-                //     duration: 2500,
-                // });
+                this.$toast({
+                    message: "用户名错误",
+                    position: "middle",
+                    duration: 2500,
+                });
                 this.usernameState = "error";
                 return false;
             }
@@ -164,11 +167,11 @@ export default {
                 this.passwordState = "success";
                 return true;
             } else {
-                // this.$toast({
-                //     message: "密码错误",
-                //     position: "middle",
-                //     // duration: 2500,
-                // });
+                this.$toast({
+                    message: "密码错误",
+                    position: "middle",
+                    // duration: 2500,
+                });
                 this.passwordState = "error";
                 return false;
             }
@@ -187,6 +190,7 @@ export default {
                         `username=${this.username}&password=${this.password}`
                     )
                     .then((res) => {
+                        console.log(res);
                         if (res.data.code == 400) {
                             this.$messagebox
                                 .confirm("账号或密码错误", "提示信息")
@@ -195,7 +199,8 @@ export default {
                                 })
                                 .catch((error) => {});
                         }
-                        if (res.data.code == 200) {
+                        if (res.data.meta.code == 200) {
+                            window.sessionStorage.setItem('token', res.data.data[0].token);
                             this.$router.push("/");
                         }
                     });

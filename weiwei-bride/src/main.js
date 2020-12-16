@@ -39,10 +39,13 @@ import {
   Swipe,
   SwipeItem,
   Image as VanImage,
-  Grid, GridItem,
+  Grid,
+  GridItem,
   PullRefresh,
   Search,
-  GoodsAction, GoodsActionIcon, GoodsActionButton,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton,
   SwitchCell,
   Popup,
   Cell,
@@ -51,9 +54,17 @@ import {
   Card,
   SwipeCell,
   Stepper,
+  SubmitBar,
+  NoticeBar,
+  List,
+
 } from 'vant';
 
 
+
+Vue.use(List);
+Vue.use(NoticeBar);
+Vue.use(SubmitBar);
 Vue.use(SwipeCell);
 Vue.use(Tabbar);
 Vue.use(TabbarItem);

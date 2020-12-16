@@ -86,5 +86,25 @@ router.get('/alluser/:id', (req, res) => {
         }
     })
 })
+// 通过用户 token 获取用户信息
+router.get('/login_user/:token', (req, res) => {
+    mysql.query('select uid,username,token,sex,phone,nickname,qq,avatar from hs_user where token=?', [req.params.token], (err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            res.send({
+                data: result,
+                meta: {
+                    code: 200,
+                    msg: '查询用户成功'
+                }
+            })
+        } else {
+            res.send({
+                code: 400,
+                msg: '查询用户失败'
+            })
+        }
+    })
+})
 
 module.exports = router;

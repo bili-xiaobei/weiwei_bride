@@ -6,7 +6,7 @@ const router = express.Router();
 
 // 获取购物车中的商品详情
 router.get('/shop_cart', (req, res) => {
-    mysql.query('select g.h_title,g.h_style,g.h_price,g.h_photos,s.h_size,s.h_color,s.h_goods_id from hs_goods g,hs_shopcart s where g.hid=s.h_goods_id', (err, result) => {
+    mysql.query('select g.h_title,g.h_style,g.h_price,g.h_photos,s.h_size,s.h_color,s.h_goods_id,s.h_num from hs_goods g,hs_shopcart s where g.hid=s.h_goods_id', (err, result) => {
         if(err) throw err;
         if(result.length > 0){
             res.send({

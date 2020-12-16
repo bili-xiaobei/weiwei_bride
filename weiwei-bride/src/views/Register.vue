@@ -1,5 +1,5 @@
 <template>
-    <div id="register">
+    <div class="register">
         <!-- 頂部區域開始 -->
         <div>
             <mt-header title="注册" fixed>
@@ -140,23 +140,23 @@ export default {
 </script>
 
 <style lang="scss">
-#register {
+.register {
     width: 10rem;
     min-height: 100vh;
     // background-image: url('../assets/indexBGM.jpg');
     background-size: cover;
     background-color: rgba(202, 202, 202, 0.7);
     .mint-button--default {
-        color: #000 !important;
+        color: #fff !important;
     }
     .mint-header {
         background-color: $bgColor;
         height: 46px;
-        color: #242424;
+        color: #fff;
     }
     .is-right,
     .mint-header-title {
-        font-size: 0.5rem !important;
+        font-size: 20px !important;
         font-weight: 600;
     }
     .logo {
@@ -165,18 +165,38 @@ export default {
         margin-top: 3rem;
         margin-bottom: 1rem;
     }
-    .operateDiv {
+    #operateDiv {
         width: 8rem;
+        // height: 5rem;
+        // background-color: #f00;
         margin: 0 auto;
         padding-bottom: 3rem;
         .content {
-            .username_img{
-                width: 2rem;
-            }
+            
             img {
-                width: 2rem;
+                // width: 0.6rem;
                 position: absolute;
-                margin-top: -1.3rem;
+                margin-top: -48px;
+            }
+            .username_img{
+                width: 25px;
+            }
+            .password_img{
+                width: 20px;
+            }
+            .conpassword_img{
+                width: 24px;
+            }
+            .mint-field-core{
+                background-color: transparent;
+                margin-left: 20px;
+            }
+            .mint-button {
+                width: 8rem;
+                margin: 0 auto;
+                .mint-button-text{
+                    color: #fff;
+                }
             }
         }
         .mint-cell {

@@ -146,6 +146,7 @@ export default {
         &::after {
             content: "Top";
             display: block;
+            color: #fff;
         }
     }
     .van-tabs__wrap {
@@ -157,7 +158,7 @@ export default {
     background-size: cover;
     background-attachment: fixed;
     .all_style {
-        padding-bottom: 50px;
+        // padding-bottom: 50px;
         // box-sizing: border-box;
         min-height: 100vh;
         // background-color: rgba(255, 255, 255, 0.6);
@@ -171,8 +172,19 @@ export default {
     .navFooter {
         background-color: $bgColor;
         .van-tabbar-item--active {
-            background-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.7);
+            .van-tabbar-item__icon,
+            .van-tabbar-item__text{
+                // color: rgba(253, 252, 252, 0.555);
+                color: #000;
+                font-weight: 900;
+                font-size: 14px;
+            }
         }
+    }
+    .van-tabbar-item__icon,
+    .van-tabbar-item__text{
+        color: rgba(253, 252, 252, 0.555);
     }
 }
 </style>

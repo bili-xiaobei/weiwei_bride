@@ -1,6 +1,7 @@
 <template>
     <div class="index">
         <!-- <van-nav-bar class="title" title="首页" fixed/> -->
+
         <van-search
             v-model="value"
             shape="round"
@@ -14,6 +15,18 @@
             @refresh="onRefresh"
             class="top55"
         >
+            <van-notice-bar left-icon="volume-o" :scrollable="false">
+                <van-swipe
+                    vertical
+                    class="notice-swipe"
+                    :autoplay="3000"
+                    :show-indicators="false"
+                >
+                    <van-swipe-item>本店活动将 20-12-12 号开始</van-swipe-item>
+                    <van-swipe-item>截止时间为 20-12-31 号</van-swipe-item>
+                    <van-swipe-item>凡是规定时间到店的顾客均可领取精美礼品</van-swipe-item>
+                </van-swipe>
+            </van-notice-bar>
             <van-swipe :autoplay="3000" :indicator-color="indicator_color">
                 <van-swipe-item v-for="(image, index) in images" :key="index">
                     <router-link :to="'/banner_goods/' + image.hid">
@@ -24,7 +37,9 @@
                     </router-link>
                 </van-swipe-item>
             </van-swipe>
-            <span class="more_style"><router-link to="/">查看更多 >></router-link></span>
+            <span class="more_style"
+                ><router-link to="/">查看更多 >></router-link></span
+            >
             <van-grid :column-num="4">
                 <van-grid-item
                     v-for="(item, index) in styleImages"
@@ -36,7 +51,9 @@
                     <p class="style_text">{{ style_title[index] }}</p>
                 </van-grid-item>
             </van-grid>
-            <span class="more_style"><router-link to="/">查看更多 >></router-link></span>
+            <span class="more_style"
+                ><router-link to="/">查看更多 >></router-link></span
+            >
             <!-- 活动 -->
             <div class="activaty">
                 <div class="wrap" v-for="item in activity" :key="item.hid">
@@ -110,6 +127,7 @@ export default {
 
 <style lang="scss">
 .index {
+    padding-bottom: 50px;
     i {
         color: $bgColor;
     }
@@ -141,6 +159,7 @@ export default {
         // margin-top: 55px;
         .van-swipe-item {
             overflow: hidden;
+            // margin:20px;
             border: 10px solid transparent;
             img {
                 width: 100%;
@@ -151,7 +170,7 @@ export default {
         }
     }
     // 更多
-    .more_style{
+    .more_style {
         display: block;
         width: 10rem;
         padding-right: 20px;
@@ -159,27 +178,27 @@ export default {
         font-size: 14px;
         border-top: 2px solid $bgColor;
         padding-top: 10px;
-        a{
+        a {
             color: $bgColor !important;
         }
     }
     // 风格
-    .van-hairline--top::after{
-        border:0 !important;
+    .van-hairline--top::after {
+        border: 0 !important;
     }
     .van-grid {
         padding-bottom: 15px;
         .van-grid-item {
             // background-color: transparent;
             padding: 10px 10px 0;
-            .van-grid-item__content{
+            .van-grid-item__content {
                 padding: 0px;
                 border-radius: 5px;
-            } 
+            }
             .style_text {
                 font-size: 0.4rem;
                 position: absolute;
-                background-color: $bgColorA;
+                background-color: $bgColor;
                 bottom: 0px;
                 display: inline-block;
                 width: 100%;
@@ -257,6 +276,13 @@ export default {
                 -webkit-line-clamp: 2; /*设置显示行数，此处为2行，可设置其他数字*/
                 -webkit-box-orient: vertical;
             }
+        }
+    }
+    .van-notice-bar__wrap{
+
+        .notice-swipe {
+            height: 40px;
+            line-height: 20px !important;
         }
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="meipai">
-        <van-nav-bar title="美拍" />
+        <van-nav-bar title="美拍" fixed/>
         <div class="content" v-for="item in data_list" :key="item.hid">
             <header>
                 <div class="avatar">
@@ -54,6 +54,11 @@ export default {
 .meipai {
     color: rgb(80, 80, 80);
     font-size: 0.4rem;
+    padding-bottom: 50px;
+    .van-nav-bar__title{
+        color: #fff;
+        font-size: 20px;
+    }
     .van-nav-bar{
         background-color: $bgColor;
     }
@@ -68,6 +73,7 @@ export default {
         background-color: $bgColor;
     }
     .content {
+        margin-top: 46px;
         padding: 20px;
         border-bottom: 2px solid $bgColor;
         header {
