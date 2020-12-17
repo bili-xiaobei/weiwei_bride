@@ -7,20 +7,6 @@ Vue.prototype.$axios = axios;
 axios.defaults.baseURL = '/api';
 import qs from 'qs';
 
-
-// -------------------------------------
-Vue.prototype.qs = qs;
-Vue.config.productionTip = false
-
-//导入mintui模块
-import MintUI from 'mint-ui';
-//导入样式文件
-import 'mint-ui/lib/style.min.css';
-//通过Vue.use()方法将MintUI注册为插件
-Vue.use(MintUI);
-
-// ----------------------------------------
-
 // 清除标签默认样式
 import '../public/css/reset.css';
 
@@ -57,11 +43,16 @@ import {
   SubmitBar,
   NoticeBar,
   List,
+  Sku,
+  RadioGroup, Radio,
 
 } from 'vant';
 
 
 
+Vue.use(Radio);
+Vue.use(RadioGroup);
+Vue.use(Sku);
 Vue.use(List);
 Vue.use(NoticeBar);
 Vue.use(SubmitBar);
@@ -94,6 +85,24 @@ Vue.use(Stepper);
 Vue.use(Lazyload, {
   lazyComponent: true,
 });
+
+
+
+// -------------------------------------
+Vue.prototype.qs = qs;
+Vue.config.productionTip = false
+
+//导入mintui模块
+import MintUI from 'mint-ui';
+//导入样式文件
+import 'mint-ui/lib/style.min.css';
+//通过Vue.use()方法将MintUI注册为插件
+Vue.use(MintUI);
+
+// ----------------------------------------
+
+
+
 
 new Vue({
   router,

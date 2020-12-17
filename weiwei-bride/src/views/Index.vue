@@ -1,14 +1,17 @@
 <template>
     <div class="index">
         <!-- <van-nav-bar class="title" title="首页" fixed/> -->
+        <div class="search flxed">
+            <van-icon name="map-marked" color="#eee" />
+            <van-search
+                v-model="value"
+                shape="round"
+                background="rgba(255, 255, 255, .6)"
+                placeholder="请输入您要搜索的内容"
+            />
+            <!-- <van-icon name="manager" color="#37a792" /> -->
+        </div>
 
-        <van-search
-            v-model="value"
-            shape="round"
-            background="rgba(255, 255, 255, .6)"
-            placeholder="请输入您要搜索的内容"
-            class="flxed"
-        />
         <van-pull-refresh
             v-model="isLoading"
             success-text="刷新成功"
@@ -24,7 +27,9 @@
                 >
                     <van-swipe-item>本店活动将 20-12-12 号开始</van-swipe-item>
                     <van-swipe-item>截止时间为 20-12-31 号</van-swipe-item>
-                    <van-swipe-item>凡是规定时间到店的顾客均可领取精美礼品</van-swipe-item>
+                    <van-swipe-item
+                        >凡是规定时间到店的顾客均可领取精美礼品</van-swipe-item
+                    >
                 </van-swipe>
             </van-notice-bar>
             <van-swipe :autoplay="3000" :indicator-color="indicator_color">
@@ -38,7 +43,7 @@
                 </van-swipe-item>
             </van-swipe>
             <span class="more_style"
-                ><router-link to="/">查看更多 >></router-link></span
+                ><router-link to="/goods">查看更多 >></router-link></span
             >
             <van-grid :column-num="4">
                 <van-grid-item
@@ -46,19 +51,20 @@
                     :key="item.hid"
                 >
                     <div class="image_style">
-                        <van-image :src="item.h_photo" />
+                        <router-link to="/goods">
+                            <van-image :src="item.h_photo" />
+                        </router-link>
                     </div>
                     <p class="style_text">{{ style_title[index] }}</p>
                 </van-grid-item>
             </van-grid>
             <span class="more_style"
-                ><router-link to="/">查看更多 >></router-link></span
+                ><router-link to="/goods">查看更多 >></router-link></span
             >
             <!-- 活动 -->
-            <div class="activaty">
+            <!-- <div class="activaty">
                 <div class="wrap" v-for="item in activity" :key="item.hid">
                     <img v-lazy="item.h_photos" />
-                    <!-- <div class="image" v-lazy:background-image='item.h_photos'></div> -->
                     <span class="good_title">{{ item.h_title }}</span>
                     <span class="price"
                         >¥
@@ -67,6 +73,44 @@
                         }}</span></span
                     >
                 </div>
+            </div> -->
+            <div class="activaty">
+                <router-link
+                    :to="'/banner_goods/' + item.hid"
+                    class="wrap"
+                    v-for="item in activity"
+                    :key="item.hid"
+                >
+                    <!-- <img v-lazy="item.h_photos" /> -->
+                    <div
+                        class="image"
+                        v-lazy:background-image="item.h_photos"
+                    ></div>
+                    <div class="attribute">
+                        <span class="good_title"
+                            ><span>微微新娘</span>{{ item.h_title }}</span
+                        >
+                        <span class="good_style"> 尺寸：S M | 颜色：白色 </span>
+                        <span class="price">
+                            ¥<span class="price_color">
+                                {{ item.h_price }}
+                                <span class="del" v-if="item.hid % 3 == 0"
+                                    >券前{{
+                                        parseInt(item.h_price * 1.1)
+                                    }}</span
+                                >
+                            </span>
+                            {{ parseInt(Math.random() * 1000) }}人已付款
+                        </span>
+                        <div class="full_reduction" v-if="item.hid % 2 == 1">
+                            <span class="span1">
+                                <span>分期免息</span>3期
+                            </span>
+                            <span class="span2"> 满2000减200 </span>
+                            <span class="span3">包邮</span>
+                        </div>
+                    </div>
+                </router-link>
             </div>
         </van-pull-refresh>
     </div>
@@ -131,23 +175,36 @@ export default {
     i {
         color: $bgColor;
     }
+    i.van-icon.van-icon-manager,
+    i.van-icon.van-icon-map-marked {
+        display: inline-block;
+        font-size: 25px;
+        margin-left: 10px;
+    }
     .flxed {
+        background-color: $bgColor !important;
         position: fixed;
         width: 10rem;
         z-index: 100;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 10px;
         // background-color: #000;
-    }
-    .van-search {
-        background-color: $bgColor !important;
-        .van-field__control {
-            color: $bgColor;
-        }
-        .van-search__content--round {
-            // background-color:$indexBGC !important;
-            .van-cell--borderless ::placeholder {
+
+        .van-search {
+            background-color: transparent !important;
+            width: 9rem;
+            .van-field__control {
                 color: $bgColor;
-                font-size: 14px !important;
-                font-weight: 600;
+            }
+            .van-search__content--round {
+                // background-color:$indexBGC !important;
+                .van-cell--borderless ::placeholder {
+                    color: $bgColor;
+                    font-size: 14px !important;
+                    font-weight: 600;
+                }
             }
         }
     }
@@ -175,7 +232,7 @@ export default {
         width: 10rem;
         padding-right: 20px;
         text-align: right;
-        font-size: 14px;
+        font-size: 0.3rem;
         border-top: 2px solid $bgColor;
         padding-top: 10px;
         a {
@@ -223,63 +280,157 @@ export default {
         }
     }
     .activaty {
-        column-count: 2;
-        column-gap: 0.3rem;
-        width: 9rem;
-        margin: 0 auto;
-        padding-top: 10px;
-        // 单个活动商品
+        width: 9.6rem;
+        // margin: 5px 0.5rem;
         .wrap {
-            // box-shadow: 0px 2px 5px $bgColor;
+            width: 100%;
+            height: 130px;
+            // background-color: #fff;
+            margin: 10px 0.2rem;
             border-radius: 5px;
-            // background-color: rgba(255, 255, 255, 0.7);
-            // background-color: $bgColor;
-            border: 2px solid $bgColor;
-            overflow: hidden;
-            margin-bottom: 10px;
-            background-size: 100%;
-            /* 防止多列布局，分页媒体和多区域上下文中的意外中断 */
-            break-inside: avoid;
-            width: 4.4rem;
-            .price {
-                display: inline-block;
-                padding: 0 10px 10px;
-                font-size: 14px;
-                .price_color {
-                    color: $bgColor;
-                    font-size: 22px;
-                    margin-left: -3px;
-                }
-            }
-            img {
-                width: 100%;
-                // height: 5rem;
-                box-sizing: border-box;
+            padding: 10px;
+            display: flex;
+            // align-items: center;
+            flex-wrap: wrap;
+            .image {
+                flex-basis: 3rem;
+                height: 3rem;
+                border-radius: 5px;
+                // margin-right: 0.1rem;
+                // padding: 10px;
                 background-size: cover;
                 background-position: center center;
-                // padding: 10px;
-                border: 10px solid transparent;
             }
-            .good_title {
-                display: inline-block;
-                margin: 10px;
-                // margin-top: -100px;
-                background-color: transparent;
-                // background-color: rgba(255, 255, 255, .4);
-                font-size: 0.36rem;
-                line-height: 0.45rem;
-                color: rgb(80, 80, 80);
-                font-weight: 600;
-                text-overflow: ellipsis; /*设置隐藏部分为省略号*/
-                overflow: hidden; /*设置隐藏*/
-                display: -webkit-box;
-                -webkit-line-clamp: 2; /*设置显示行数，此处为2行，可设置其他数字*/
-                -webkit-box-orient: vertical;
+            .attribute {
+                flex-basis: 5.8rem;
+                padding-left: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .good_title {
+                    font-size: 0.4rem;
+                    display: block;
+                    color: #444;
+                    line-height: 0.55rem;
+                    span {
+                        font-size: 0.3rem;
+                        display: inline-block;
+                        background-color: $bgColor;
+                        padding: 0 3px;
+                        color: #fff;
+                        border-radius: 5px;
+                    }
+                }
+                .good_style {
+                    font-size: 0.35rem;
+                    color: #555;
+                }
+                .price {
+                    font-size: 0.27rem;
+                    color: #000;
+                    .price_color {
+                        font-size: 0.5rem;
+                        color: $bgColor;
+                        .del {
+                            font-size: 0.3rem;
+                            text-decoration: line-through;
+                        }
+                    }
+                }
+                .full_reduction {
+                    font-size: 0.25rem;
+                    // display: inline-block;
+                    & > span {
+                        margin-right: 5px;
+                    }
+                    .span1 {
+                        background-color: rgb(231, 161, 30);
+                        border-radius: 3px;
+                        color: #fff;
+                        padding: 2px 3px 2px 0;
+                        & > span {
+                            background-color: rgb(240, 36, 36);
+                            margin-right: 2px;
+                            display: inline-block;
+                            padding: 2px 0px 1px 3px;
+                            border-radius: 3px 0 0 3px;
+                        }
+                    }
+                    .span2 {
+                        color: #f40;
+                        border: 1px solid #f40;
+                        border-radius: 3px;
+                        display: inline-block;
+                        padding: 1px 2px;
+                    }
+                    .span3 {
+                        border: 1px solid rgb(248, 19, 19);
+                        color: rgb(248, 19, 19);
+                        border-radius: 5px;
+                        display: inline-block;
+                        padding: 1px 2px;
+                    }
+                }
             }
         }
     }
-    .van-notice-bar__wrap{
-
+    // .activaty {
+    //     column-count: 2;
+    //     column-gap: 0.3rem;
+    //     width: 9rem;
+    //     margin: 0 auto;
+    //     padding-top: 10px;
+    //     // 单个活动商品
+    //     .wrap {
+    //         // box-shadow: 0px 2px 5px $bgColor;
+    //         border-radius: 5px;
+    //         // background-color: rgba(255, 255, 255, 0.7);
+    //         // background-color: $bgColor;
+    //         border: 2px solid $bgColor;
+    //         overflow: hidden;
+    //         margin-bottom: 10px;
+    //         background-size: 100%;
+    //         /* 防止多列布局，分页媒体和多区域上下文中的意外中断 */
+    //         break-inside: avoid;
+    //         width: 4.4rem;
+    //         .price {
+    //             display: inline-block;
+    //             padding: 0 10px 10px;
+    //             font-size: 14px;
+    //             .price_color {
+    //                 color: $bgColor;
+    //                 font-size: 22px;
+    //                 margin-left: -3px;
+    //             }
+    //         }
+    //         img {
+    //             width: 100%;
+    //             // height: 5rem;
+    //             box-sizing: border-box;
+    //             background-size: cover;
+    //             background-position: center center;
+    //             // padding: 10px;
+    //             border: 10px solid transparent;
+    //         }
+    //         .good_title {
+    //             display: inline-block;
+    //             margin: 10px;
+    //             // margin-top: -100px;
+    //             background-color: transparent;
+    //             // background-color: rgba(255, 255, 255, .4);
+    //             font-size: 0.36rem;
+    //             line-height: 0.45rem;
+    //             color: rgb(80, 80, 80);
+    //             font-weight: 600;
+    //             text-overflow: ellipsis; /*设置隐藏部分为省略号*/
+    //             overflow: hidden; /*设置隐藏*/
+    //             display: -webkit-box;
+    //             -webkit-line-clamp: 2; /*设置显示行数，此处为2行，可设置其他数字*/
+    //             -webkit-box-orient: vertical;
+    //         }
+    //     }
+    // }
+    .van-notice-bar__wrap {
         .notice-swipe {
             height: 40px;
             line-height: 20px !important;

@@ -67,10 +67,10 @@ export default {
                 window.pageYOffset ||
                 document.documentElement.scrollTop ||
                 document.body.scrollTop;
-            if (scrollTop > 200) {
-                this.topShow = true; // 滚动高度大于200时，显示返回顶部按钮
-            } else if (scrollTop < 200) {
-                this.topShow = false; // 滚动高度小于200时，隐藏返回顶部按钮
+            if (scrollTop > 400) {
+                this.topShow = true; // 滚动高度大于400时，显示返回顶部按钮
+            } else if (scrollTop < 400) {
+                this.topShow = false; // 滚动高度小于400时，隐藏返回顶部按钮
             }
         },
         // 反击返回顶部的方法
@@ -111,11 +111,11 @@ export default {
                     endX = parseInt(el.changedTouches[0].pageX);
                     endY = parseInt(el.changedTouches[0].pageY);
                     // console.log(endX, endY);
-                    if (endX - startX > 150) {
+                    if (endX - startX > 250) {
                         // console.log('向右滑动')
                         if (this.active <= 0) return;
                         else this.active--;
-                    } else if (startX - endX > 150) {
+                    } else if (startX - endX > 250) {
                         // console.log('向左滑动')
                         if (this.active >= 3) return;
                         else this.active++;
@@ -176,7 +176,7 @@ export default {
             .van-tabbar-item__icon,
             .van-tabbar-item__text{
                 // color: rgba(253, 252, 252, 0.555);
-                color: #000;
+                color: #333;
                 font-weight: 900;
                 font-size: 14px;
             }

@@ -146,7 +146,7 @@ export default {
     methods: {
         // 校验用户名
         checkUsername() {
-            let usernameRegExp = /^[0-9A-Za-z]{6,12}$/;
+            let usernameRegExp = /([a-zA-Z0-9\u4e00-\u9fa5]){0,10}/;
             if (usernameRegExp.test(this.username)) {
                 this.usernameState = "success";
                 return true;

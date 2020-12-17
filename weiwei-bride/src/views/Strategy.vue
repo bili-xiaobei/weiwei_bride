@@ -1,29 +1,40 @@
 <template>
     <div class="strategy">
-        <van-tabs v-model="s_active" @click="getStyleData" sticky>
+        <van-nav-bar
+            title="百科"
+            left-arrow
+            @click-left="onClickLeft"
+            fixed
+        />
+        <van-tabs v-model="s_active" @click="getStyleData" fixed>
             <van-tab
                 :title="item_title"
                 v-for="item_title of titleArr"
                 :key="item_title"
             >
                 <div class="content" v-for="item in data_list" :key="item.hid">
-                    <!-- <header>
-                        <div class="avatar"></div>
-                        <div class="title">
-                            <div>{{ item.h_author }}</div>
-                            <div>{{ item.h_date }}</div>
-                        </div>
-                    </header> -->
                     <div class="h_title">{{ item.h_title }}</div>
                     <div>
-                        <img class="img" :src="item.h_photo.split('---')[0]" alt="">
+                        <img
+                            class="img"
+                            :src="item.h_photo.split('---')[0]"
+                            alt=""
+                        />
                     </div>
                     <div class="text" v-html="item.h_content"></div>
-                    <span class="more_style"><van-cell is-link @click="showPopup">查看全部</van-cell></span>
-                    <div class="type"><span>风格种类:</span> 裳霏婚纱礼服2019新款</div>
+                    <span class="more_style"
+                        ><van-cell is-link @click="showPopup"
+                            >查看全部</van-cell
+                        ></span
+                    >
+                    <div class="type">
+                        <span>风格种类:</span> 裳霏婚纱礼服2019新款
+                    </div>
                     <div class="browse_fabulou">
-                        <div><van-icon name="eye-o"/>{{ item.h_browse }}</div>
-                        <div><van-icon name="good-job-o" />{{ item.h_fabulou }}</div>
+                        <div><van-icon name="eye-o" />{{ item.h_browse }}</div>
+                        <div>
+                            <van-icon name="good-job-o" />{{ item.h_fabulou }}
+                        </div>
                     </div>
                     <!-- <van-popup v-model="show">内容</van-popup> -->
                     <van-popup
@@ -33,9 +44,7 @@
                         position="bottom"
                         :style="{ height: '60%' }"
                     >
-                        <div class="popup_content">
-                            
-                        </div>
+                        <div class="popup_content" v-html="item.h_content"></div>
                     </van-popup>
                 </div>
             </van-tab>
@@ -64,8 +73,11 @@ export default {
                     this.data_list = res.data.data;
                 });
         },
-         showPopup() {
+        showPopup() {
             this.show = true;
+        },
+        onClickLeft(){
+            this.$router.go(-1)
         },
     },
 };
@@ -75,14 +87,38 @@ export default {
 .strategy {
     color: rgb(80, 80, 80);
     font-size: 0.4rem;
-    .van-tabs__wrap {
-        height: 40px !important;
-        background-color: transparent;
+    // padding-bottom: 30px;
+    // 头部
+    .van-nav-bar__content {
+        background-color: $bgColor;
+        .van-nav-bar__title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+        }
+        .van-icon{
+            color: #fff;
+        }
+    }
+    .van-tabs {
+        margin-top: 40px;
+        padding-bottom: 30px;
+        .van-tabs__wrap {
+            height: 40px !important;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+            width: 100%;
+            background-color: transparent;
+            .van-tab__text {
+                color: #fff;
+            }
+        }
     }
     .van-tabs__line {
-        background-color: $sizeColor;
+        background-color: #eee;
     }
-    .van-tabs__nav{
+    .van-tabs__nav {
         background-color: $bgColor;
     }
     .content {
@@ -114,17 +150,16 @@ export default {
             padding-bottom: 10px;
             border-bottom: 1px solid $bgColor;
         }
-        .img{
+        .img {
             box-sizing: border-box;
             width: 100%;
         }
-        .text{
-            
-            p{
+        .text {
+            p {
                 text-indent: 0.8rem;
                 line-height: 0.6rem;
             }
-            span{
+            span {
                 font-size: 0.4rem;
                 color: $bgColor;
             }
@@ -135,49 +170,67 @@ export default {
             -webkit-line-clamp: 5; /*设置显示行数，此处为2行，可设置其他数字*/
             -webkit-box-orient: vertical;
         }
-        .more_style{
+        .more_style {
             display: block;
             width: 100%;
             padding-right: 20px;
             text-align: right;
             font-size: 14px;
-            .van-cell{
+            .van-cell {
                 background-color: transparent;
-                .van-cell__value--alone{
+                .van-cell__value--alone {
                     color: $bgColor !important;
                     text-align: right;
                 }
-                .van-cell__right-icon{
+                .van-cell__right-icon {
                     color: $bgColor;
                 }
             }
         }
-        .type{
+        .type {
             margin-top: 5px;
-            span{
+            span {
                 font-size: 0.44rem;
             }
         }
-        .browse_fabulou{
+        .browse_fabulou {
             width: 100%;
             line-height: 30px;
             display: flex;
             justify-content: flex-end;
             padding: 5px 20px 0 0;
-            div{
+            div {
                 display: flex;
                 align-items: center;
                 margin-left: 15px;
             }
         }
-        .van-overlay{
+        .van-overlay {
             background-color: rgba(0, 0, 0, 0.2);
         }
-        .van-popup{
-            background-color: $bgColor;
-            // background-color: rgba(255, 255, 255, 0.83);
+        .van-icon-close::before{
+            color: #000;
+        }
+        .van-popup {
+            // background-color: $bgColor;
+            // background-color: rgba(255, 255, 255, 0.8);
+            .popup_content{
+                padding: 50px 30px 30px;
+                border-top: 2px solid rgb(65, 65, 65);
+                // color: #000;
+                p{
+                    text-indent: 32px;
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+                span{
+                    font-size: 20px;
+                    color: $bgColor;
+                    display: block;
+                    margin: 10px 0 5px;
+                }
+            }
         }
     }
-    
 }
 </style>

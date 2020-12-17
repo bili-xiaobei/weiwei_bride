@@ -1,6 +1,6 @@
 <template>
     <div class="my">
-        <van-button @click="showPopup">展示弹出层</van-button>
+        <van-button @click="showPopup">更改主题</van-button>
         <van-popup
             v-model="show"
             position="bottom"
@@ -66,4 +66,8 @@ export default {
 </script>
 
 <style lass="scss">
+.van-button{
+    width: 10rem;
+    border-width: 1px 0; 
+}
 </style>

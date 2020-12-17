@@ -55,6 +55,7 @@ export default {
     color: rgb(80, 80, 80);
     font-size: 0.4rem;
     padding-bottom: 50px;
+    padding-top: 46px;
     .van-nav-bar__title{
         color: #fff;
         font-size: 20px;
@@ -73,7 +74,7 @@ export default {
         background-color: $bgColor;
     }
     .content {
-        margin-top: 46px;
+        margin-top: 10px;
         padding: 20px;
         border-bottom: 2px solid $bgColor;
         header {

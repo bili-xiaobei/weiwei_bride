@@ -8,6 +8,25 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <style>
+    body {
+      height: 100vh;
+      overflow: hidden;
+      overflow-y: scroll;
+    }
+
+    *::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    *::-webkit-scrollbar:horizontal {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+  </style>
   <title><%= htmlWebpackPlugin.options.title %></title>
   <script>
     // 监听界面横竖屏监听

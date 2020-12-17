@@ -38,6 +38,15 @@ const routes = [{
 },{
   path:'/payment',
   component: () => import(/* webpackChunkName: 'login' */ '../views/Payment.vue')
+},{
+  path:'/strategy',
+  component: () => import(/* webpackChunkName: 'strategy' */ '../views/Strategy.vue')
+},{
+  path:'/payment',
+  component: () => import(/* webpackChunkName: 'payment' */ '../views/Payment.vue')
+},{
+  path:'/goods',
+  component: () => import(/* webpackChunkName: 'goods' */ '../views/Goods.vue')
 },
 // -----------------------
 
@@ -46,7 +55,24 @@ const routes = [{
 ] 
 
 const router = new VueRouter({
+  mode: 'history', // 解决 请求地址自动的添加 # 的问题  --  vue 路由默认是 hash，改成 history 模式
   routes
 })
+
+// // 挂载路由导航守卫
+// router.beforeEach((to, from, next) => {
+
+//     if(to.path == '/index' || to.path == '/strategy' || to.path ==  '/payment') return next();
+//     // 获取 token 
+//     let token = window.sessionStorage.getItem('token');
+    
+//     if(!token) return next('/login');
+//     next();
+
+// })
+
+
+
+
 
 export default router
