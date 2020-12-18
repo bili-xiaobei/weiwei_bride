@@ -132,7 +132,7 @@ export default {
             // console.log(this.good_data)
             // 将图片切割成数组
             this.good_data.h_photos = this.good_data.h_photos.split("---");
-            console.log(this.good_data.h_title);
+            // console.log(this.good_data.h_title);
         });
     },
     data() {

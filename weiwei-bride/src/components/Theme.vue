@@ -1,10 +1,13 @@
 <template>
     <div class="my">
-        <van-button @click="showPopup">更改主题</van-button>
+        <!-- <van-button @click="showPopup">更改主题</van-button> -->
+        <van-button>修改个人信息</van-button>
+        <van-cell is-link @click="showPopup" >展示弹出层</van-cell>
         <van-popup
             v-model="show"
             position="bottom"
             :style="{ height: '8.2rem', width: '10rem' }"
+            @opened="renderColor"
         >
             <van-picker
                 show-toolbar
@@ -21,9 +24,6 @@
 import cut from "../../public/js/publicBGC.js";
 import { Toast } from "vant";
 export default {
-    created() {
-
-    },
     data() {
         return {
             show: false,
@@ -39,14 +39,14 @@ export default {
                 "淘宝红"
             ],
             columns_color: [
-                '#f05b72cc',
-                '#d93a49cc',
-                '#2a5caacc',
-                '#454926cc',
-                '#007d65cc',
-                '#007947cc',
-                '#000000cc',
-                '#ff4400cc'
+                '#f05b72',
+                '#d93a49',
+                '#2a5caa',
+                '#454926',
+                '#007d65',
+                '#007947',
+                '#000000',
+                '#ff4400'
             ]
         };
     },
@@ -54,14 +54,21 @@ export default {
         showPopup() {
             this.show = true;
         },
+        renderColor(){
+            var lis = document.getElementsByClassName('van-picker-column__item');
+            for (let i = 0; i < lis.length; i++) {
+                lis[i].style.background = this.columns_color[i];
+            }
+        },
         onConfirm(value, index) {
             cut(this.columns_color[index]);
             this.show = false;
         },
         onCancel() {
             Toast("取消");
+            this.show = false;
         },
-    },
+    }
 };
 </script>
 
@@ -69,5 +76,10 @@ export default {
 .van-button{
     width: 10rem;
     border-width: 1px 0; 
+}
+.van-button{
+    height: 1rem;
+    line-height: 1rem;
+    border: 0;
 }
 </style>

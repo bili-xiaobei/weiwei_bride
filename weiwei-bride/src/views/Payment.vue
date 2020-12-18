@@ -98,7 +98,7 @@ export default {
     created() {
         this.$axios.get("/my/shop_cart").then((res) => {
             this.data_list = res.data.data;
-            console.log(this.data_list);
+            // console.log(this.data_list);
         });
     },
     data() {

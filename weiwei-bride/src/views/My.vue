@@ -184,13 +184,13 @@ export default {
                 "https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3163479695,2609507199&fm=26&gp=0.jpg";
             // 获取用户信息
             this.$axios.get(`/user/login_user/${token}`).then((res) => {
-                console.log(res.data.data[0]);
+                // console.log(res.data.data[0]);
                 this.data_list = res.data.data[0];
                 // 通过用户 id 进行查寻对应的相关信息   这里需要 Primary
             });
             // 获取优惠券 / 购物卡
             this.$axios.get("/my/coupon").then((res) => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 this.coupon_list = res.data.data;
             });
         }

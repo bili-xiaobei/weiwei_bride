@@ -84,7 +84,7 @@ export default {
                     let photo = item.h_photos.split("---")[0];
                     item.h_photos = photo;
                 });
-                console.log(this.good_list);
+                // console.log(this.good_list);
             });
         },
         // 通过计算来进行页面的跳转

@@ -8,8 +8,17 @@
                 shape="round"
                 background="rgba(255, 255, 255, .6)"
                 placeholder="请输入您要搜索的内容"
+                @input="searchLike"
+                @focus="showPopup"
+                @blur="showPopup"
             />
+            <!-- 提示  搜索关键字  待完成  -->
             <!-- <van-icon name="manager" color="#37a792" /> -->
+        </div>
+        <div class="search_like" v-show="isShow">
+            <router-link :to='"/banner_goods/" + item.hid' v-for="item of search_list" :key="item.hid">
+                {{ item.h_title }}
+            </router-link>
         </div>
 
         <van-pull-refresh
@@ -17,6 +26,7 @@
             success-text="刷新成功"
             @refresh="onRefresh"
             class="top55"
+            v-show="comIsShow"
         >
             <van-notice-bar left-icon="volume-o" :scrollable="false">
                 <van-swipe
@@ -113,6 +123,10 @@
                 </router-link>
             </div>
         </van-pull-refresh>
+        <!-- <van-cell is-link @>展示弹出层</van-cell> -->
+        <!-- <van-popup v-model="isShow" position="top" :style="{ height: '30%' }">内容</van-popup> -->
+        <!-- 搜索时显示 -->
+        
     </div>
 </template>
 
@@ -133,6 +147,12 @@ export default {
             isLoading: false,
             value: "",
             indicator_color: style.navColor,
+            // 弹出层
+            isShow: false,
+            // 组件是否显示
+            comIsShow: true,
+            // 模糊查询的数据列表
+            search_list: []
         };
     },
     methods: {
@@ -165,6 +185,31 @@ export default {
                 this.count++;
             }, 1000);
         },
+        // 用户搜索商品
+        searchLike(){
+            // console.log(this.value)
+            // 输入框有内容时
+            if(this.value.trim()) {
+                this.comIsShow = false;
+                this.isShow = true;
+            } else {
+                // 输入框没内容时
+                this.comIsShow = true;
+                this.isShow = false;
+            }
+            
+            // 发送请求  进行模糊查询
+            this.$axios.get('/goods/search_like/'+this.value).then(res => {
+                this.search_list = res.data.data;
+                // console.log(this.search_list)
+            })
+        },
+        // 点击显示模糊查询面板
+        showPopup(){
+            // 搜索框获得焦点时
+            // this.comIsShow = false;  // 组件隐藏
+            // this.isShow = true;      // 弹出层显示
+        }
     },
 };
 </script>
@@ -434,6 +479,20 @@ export default {
         .notice-swipe {
             height: 40px;
             line-height: 20px !important;
+        }
+    }
+    .search_like{
+        position: absolute;
+        background-color: #e0e0e0;
+        top: 56px;
+        padding-bottom: 150px;
+        a{
+            text-overflow: ellipsis; /*设置隐藏部分为省略号*/
+            overflow: hidden; /*设置隐藏*/
+            display: -webkit-box;
+            -webkit-line-clamp: 1; /*设置显示行数，此处为2行，可设置其他数字*/
+            -webkit-box-orient: vertical;
+            margin: 10px 40px;
         }
     }
 }

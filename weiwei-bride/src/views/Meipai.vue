@@ -40,7 +40,7 @@ export default {
         getStyleData() {
             this.$axios.get("/meipai/all").then((res) => {
                 this.data_list = res.data.data;
-                console.log(this.data_list)
+                // console.log(this.data_list)
             });
         },
         showPopup() {

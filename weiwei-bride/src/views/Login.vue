@@ -190,7 +190,7 @@ export default {
                         `username=${this.username}&password=${this.password}`
                     )
                     .then((res) => {
-                        console.log(res);
+                        // console.log(res);
                         if (res.data.code == 400) {
                             this.$messagebox
                                 .confirm("账号或密码错误", "提示信息")

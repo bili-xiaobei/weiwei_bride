@@ -107,11 +107,11 @@ export default {
         this.token = window.sessionStorage.getItem('token');
         this.$axios.get("/my/shop_cart").then((res) => {
             this.data_list = res.data.data;
-            console.log(this.data_list);
+            // console.log(this.data_list);
         });
         this.$axios.get("/my/order").then((res) => {
             this.order_list = res.data.data;
-            console.log(this.order_list);
+            // console.log(this.order_list);
         });
     },
     data() {
