@@ -6,6 +6,22 @@ module.exports = mysql.createPool({
     user: 'root',
     password: '123456',
     database: 'hs',
+    
+
+
+    // 部署
+    // host     : process.env.MYSQL_HOST,
+    // port     : process.env.MYSQL_PORT,
+    // user     : process.env.ACCESSKEY,
+    // password : process.env.SECRETKEY,
+    // database : 'app_' + process.env.APPNAME,
+
+
+
+
+
     connectTimeout: 15
+
 })
+
 

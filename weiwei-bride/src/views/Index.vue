@@ -329,7 +329,7 @@ export default {
         // margin: 5px 0.5rem;
         .wrap {
             width: 100%;
-            height: 130px;
+            height: 3.5rem;
             // background-color: #fff;
             margin: 10px 0.2rem;
             border-radius: 5px;

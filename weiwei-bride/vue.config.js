@@ -3,6 +3,8 @@ module.exports = {
         proxy: {
             "/api": {
                 target: "http://127.0.0.1:3000",
+                // 部署
+                // target: "http://weiwei010101.applinzi.com:5050",
                 changeOrigin: "true",
                 // pathRewrite: {
                 //     '^/api': ''

@@ -17,7 +17,7 @@ const routes = [{
   component: () => import( /* webpackChunkName: 'banner_goods' */ '../views/BannerGood.vue')
 },
 
-// -------------------------
+// -------------------------  
 {
   path: '/register',
   name: 'Register',
@@ -28,9 +28,6 @@ const routes = [{
 },{
   path: '/activity',
   name: 'Activity',
-  // route level code-splitting
-  // this generates a separate chunk (activity.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
   component: () => import(/* webpackChunkName: "activity" */ '../views/Activity.vue')
 },{
   path:'/login',

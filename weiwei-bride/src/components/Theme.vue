@@ -1,8 +1,8 @@
 <template>
     <div class="my">
         <!-- <van-button @click="showPopup">更改主题</van-button> -->
+        <van-button is-link @click="showPopup">更换主题</van-button>
         <van-button>修改个人信息</van-button>
-        <van-cell is-link @click="showPopup" >展示弹出层</van-cell>
         <van-popup
             v-model="show"
             position="bottom"
