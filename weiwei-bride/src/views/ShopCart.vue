@@ -3,25 +3,29 @@
         <van-tabs type="card" background="transparent" animated sticky>
             <van-tab title="购物车" class="shop_cart">
                 <div class="istoken" v-if="token">
-                    <router-link
-                        :to="'/banner_goods/' + item.h_goods_id" 
+                    <div
                         class="good_card"
                         v-for="item of data_list"
                         :key="item.h_goods_id"
                     >
-                        <div class="img">
+                        <router-link
+                            :to="'/banner_goods/' + item.h_goods_id"
+                            class="img"
+                        >
                             <img
                                 class="img"
                                 v-lazy:background-image="
                                     item.h_photos.split('---')[0]
                                 "
                             />
-                        </div>
+                        </router-link>
                         <!-- <img v-lazy="item.h_photos.split('---')[0]" alt=""> -->
                         <div class="detail">
                             <div class="de_title">{{ item.h_title }}</div>
                             <div class="de_specs">
-                                <span class="size">尺寸：{{ item.h_size }} 码</span>
+                                <span class="size"
+                                    >尺寸：{{ item.h_size }} 码</span
+                                >
                                 <span class="color"
                                     >颜色：{{ item.h_color }}色</span
                                 >
@@ -44,10 +48,16 @@
                                     >
                                         +
                                     </button>
+                                    <button
+                                        class="delete"
+                                        @click="deleteGoods(item.h_goods_id)"
+                                    >
+                                        删除
+                                    </button>
                                 </span>
                             </div>
                         </div>
-                    </router-link>
+                    </div>
                     <div class="total">
                         <span>合计：{{ total }}</span>
                         <div class="submit">
@@ -57,43 +67,54 @@
                 </div>
                 <please-login v-else />
             </van-tab>
-            <van-tab title="订单"  v-if="token">
+            <van-tab title="订单">
                 <div class="istoken" v-if="token">
-                <div class="order">
-                    <div class="g_details">
-                        <router-link
-                            :to="'/banner_goods/' + item.h_goods_id"
-                            class="good"
-                            v-for="item of order_list"
-                            :key="item.h_goods_id"
-                        >
-                            <div class="is_show" >
-                                <img
-                                    v-lazy:background-image="
-                                        item.h_photos.split('---')[0]
-                                    "
-                                />
-                                <div class="tit_col_size_pr">
-                                    <div class="tit">
-                                        {{ item.h_title }}
-                                    </div>
-                                    <div class="date">
-                                        购买日期：{{ item.h_date }}
-                                    </div>
-                                    <div class="pr">
-                                        ¥ <span>{{ item.h_price }}</span>
-                                        <span class="again">
-                                            <button>加入购物车</button>
-                                            <button>再次购买</button>
-                                        </span>
+                    <div class="order">
+                        <div class="g_details">
+                            <div
+                                class="good"
+                                v-for="item of order_list"
+                                :key="item.h_goods_id"
+                            >
+                                <div class="is_show">
+                                    <router-link
+                                        :to="'/banner_goods/' + item.h_goods_id"
+                                    >
+                                        <img
+                                            v-lazy:background-image="
+                                                item.h_photos.split('---')[0]
+                                            "
+                                        />
+                                    </router-link>
+
+                                    <div class="tit_col_size_pr">
+                                        <div class="tit">
+                                            {{ item.h_title }}
+                                        </div>
+                                        <div class="date">
+                                            购买日期：{{ item.h_date }}
+                                        </div>
+                                        <div class="pr">
+                                            ¥ <span>{{ item.h_price }}</span>
+                                            <span class="again">
+                                                <button
+                                                    @click="
+                                                        addShopCart(
+                                                            item.h_goods_id
+                                                        )
+                                                    "
+                                                >
+                                                    加入购物车
+                                                </button>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </router-link>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <please-login v-else />
+                <please-login v-else />
             </van-tab>
         </van-tabs>
     </div>
@@ -101,45 +122,101 @@
 
 <script>
 import style from "../../public/css/_variable.scss";
-import PleaseLogin from '../components/PleaseLogin.vue';
+import PleaseLogin from "../components/PleaseLogin.vue";
+// import qs from 'qs';
 export default {
     created() {
-        this.token = window.sessionStorage.getItem('token');
-        this.$axios.get("/my/shop_cart").then((res) => {
-            this.data_list = res.data.data;
-            // console.log(this.data_list);
-        });
-        this.$axios.get("/my/order").then((res) => {
-            this.order_list = res.data.data;
-            // console.log(this.order_list);
-        });
+        this.getShopOrder();
+        this.token = window.sessionStorage.getItem("token");
     },
     data() {
         return {
             bgColor: style.navColor,
             data_list: [],
             order_list: [],
-            token: '',
+            token: "",
         };
     },
     methods: {
         add(id) {
             for (let item of this.data_list) {
-                if (item.h_goods_id == id) return ++item.h_num;
+                if (item.h_goods_id == id)
+                    this.$axios.put(
+                        `/goods/update_goods_num`,
+                        this.$qs.stringify({
+                            num: ++item.h_num,
+                            hid: item.h_goods_id,
+                        })
+                    );
             }
         },
         min(id) {
             for (let item of this.data_list) {
                 if (item.h_goods_id == id) {
                     if (item.h_num > 0) {
-                        return --item.h_num;
+                        this.$axios.put(
+                            `/goods/update_goods_num`,
+                            this.$qs.stringify({
+                                num: --item.h_num,
+                                hid: item.h_goods_id,
+                            })
+                        );
                     }
                 }
             }
         },
         submit() {
-            this.$router.push('/payment')
+            this.$router.push("/payment");
         },
+        // 再次加入购物车
+        async addShopCart(goodID) {
+            // 想数据库中的购物车加入一条数据
+            const { data: result } = await this.$axios.get(
+                `/goods/add_goods/${goodID}`
+            );
+            console.log(result);
+            this.$Toast({
+                message: result.msg,
+                position: "bottom",
+            });
+            this.getShopOrder();
+        },
+        // 获得购物车和订单信息
+        getShopOrder() {
+            this.$axios.get("/my/shop_cart").then((res) => {
+                this.data_list = res.data.data;
+            });
+            this.$axios.get("/my/order").then((res) => {
+                this.order_list = res.data.data;
+            });
+        },
+        // 删除购物车中的商品
+        deleteGoods(id) {
+            console.log(id);
+            this.$Dialog
+                .confirm({
+                    message: "是否删除该商品",
+                })
+                .then(async () => {
+                    // 发起删除购物车商品的请求
+                    const { data: result } = await this.$axios.delete(
+                        `/goods/delete_goods/${id}`
+                    );
+                    this.$Toast({
+                        message: result.msg,
+                        position: "bottom",
+                    });
+                    this.getShopOrder();
+                })
+                .catch(() => {
+                    console.log()
+                    this.$Toast({
+                        message: '取消删除',
+                        position: "bottom",
+                    });
+                });
+            
+        }
     },
     computed: {
         total() {
@@ -150,9 +227,9 @@ export default {
             return total;
         },
     },
-    components:{
+    components: {
         PleaseLogin,
-    }
+    },
 };
 </script>
 
@@ -173,7 +250,7 @@ export default {
         background-color: rgb(248, 248, 248);
         display: flex;
         margin: 10px;
-        padding: 10px 30px;
+        padding: 10px 15px;
         // border-bottom: 2px solid $bgColor;
         // border-radius: 5px;
         // margin-bottom: 15px;
@@ -225,6 +302,15 @@ export default {
                         font-weight: 600;
                         border-radius: 3px;
                     }
+                    .delete {
+                        background-color: $bgColor;
+                        border: 0;
+                        color: #fff;
+                        border-radius: 3px;
+                        padding: 2px 4px;
+                        font-size: 0.35rem;
+                        margin-left: 10px;
+                    }
                     span {
                         display: inline-block;
                         width: 20px;
@@ -258,7 +344,7 @@ export default {
             }
         }
     }
-        
+
     .delete-button {
         height: 100%;
     }
@@ -320,7 +406,7 @@ export default {
                             // position: absolute;
                             // top: -2.4rem;
                         }
-                        .date{
+                        .date {
                             margin-top: 10px;
                         }
                         .pr {
@@ -332,9 +418,9 @@ export default {
                                 height: 0.6rem;
                                 font-size: 0.6rem;
                             }
-                            .again{
+                            .again {
                                 float: right;
-                                button{
+                                button {
                                     margin-left: 10px;
                                     background-color: $bgColor;
                                     color: #fff;

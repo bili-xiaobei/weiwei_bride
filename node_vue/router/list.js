@@ -48,33 +48,6 @@ router.get('/menuList', (req, res) => {
                 path: 'goods',
                 order: 2
             }]
-        }, {
-            id: 400,
-            authName: '订单管理',
-            path: 'orders',
-            order: 1,
-            children: [{
-                id: 410,
-                authName: '订单列表',
-                path: 'orders_list',
-                order: 2
-            },{
-                id: 420,
-                authName: '购物车列表',
-                path: 'shop_list',
-                order: 2
-            }]
-        }, {
-            id: 500,
-            authName: '数据统计',
-            path: 'reports',
-            order: 2,
-            children: [{
-                id: 510,
-                authName: '统计图',
-                path: 'reports',
-                order: 2
-            }]
         }],
         meta: {
             message: '获取列表',

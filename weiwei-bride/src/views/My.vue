@@ -17,7 +17,7 @@
                     百科
                     <span>12</span>
                 </router-link>
-                <router-link to="/" class="address">
+                <router-link to="/address" class="address">
                     <van-icon
                         name="location"
                         color="rgba(80, 53, 231, 0.719)"
@@ -39,12 +39,10 @@
         </div>
         <div class="about">
             <van-list>
-                <van-cell>
-                    <!-- 图标 -->
+                <!-- <van-cell @click="goMyDynamic">
                     <span @clock="getMyDynamic"><van-icon name="star-o" />我的动态</span>
                     <span><van-icon name="arrow" /></span>
-                    <!-- 动态个数 -->
-                </van-cell>
+                </van-cell> -->
                 <van-cell>
                     <!-- 图标 -->
                     <span><van-icon name="friends-o" />性别</span>
@@ -66,12 +64,12 @@
                 <van-cell>
                     <!-- 图标 -->
                     <span><van-icon name="manager-o" />隐私</span>
-                    <span><van-icon name="arrow" /></span>
+                    <!-- <span><van-icon name="arrow" /></span> -->
                 </van-cell>
                 <van-cell>
                     <!-- 图标 -->
                     <span><van-icon name="cluster-o" />通用</span>
-                    <span><van-icon name="arrow" /></span>
+                    <!-- <span><van-icon name="arrow" /></span> -->
                 </van-cell>
             </van-list>
             <van-list>
@@ -230,6 +228,10 @@ export default {
         },
         goSetting(){
             this.settingShow = true;
+        },
+        // 点击去我的动态
+        goMyDynamic(){
+            // this.$router.push('/')
         }
     },
     components: {

@@ -12,9 +12,9 @@
                 </div>
             </header>
             <div class="h_title">{{ item.h_title }}</div>
-            <div>
+            <router-link  :to='"/banner_goods/" + item.h_goods_id'>
                 <img class="img" :src="item.h_photo.split('---')[0]" alt="" />
-            </div>
+            </router-link>
             <div class="browse_fabulou">
                 <div><van-icon name="eye-o" />{{ item.h_browse }}</div>
                 <div><van-icon name="star-o" />{{ item.h_collection }}</div>

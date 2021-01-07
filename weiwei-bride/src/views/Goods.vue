@@ -26,7 +26,7 @@
                             <span class="del" v-if="item.hid % 3 == 0"
                                 >券前{{ parseInt(item.h_price * 1.1) }}</span
                             >
-                        </span>
+                        </span> 
                         {{ parseInt(Math.random() * 1000) }}人已付款
                     </span>
                     <div class="full_reduction" v-if="item.hid % 2 == 1">

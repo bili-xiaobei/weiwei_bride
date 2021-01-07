@@ -2,15 +2,13 @@
     <div class="index">
         <!-- <van-nav-bar class="title" title="首页" fixed/> -->
         <div class="search flxed">
-            <van-icon name="map-marked" color="#eee" />
+            <van-icon name="map-marked" color="#eee" @click="address"/>
             <van-search
                 v-model="value"
                 shape="round"
                 background="rgba(255, 255, 255, .6)"
                 placeholder="请输入您要搜索的内容"
                 @input="searchLike"
-                @focus="showPopup"
-                @blur="showPopup"
             />
             <!-- 提示  搜索关键字  待完成  -->
             <!-- <van-icon name="manager" color="#37a792" /> -->
@@ -182,6 +180,9 @@ export default {
         onRefresh() {
             setTimeout(() => {
                 this.isLoading = false;
+                this.getBannerImages();
+                this.getStyleImages();
+                this.getActivity();
                 this.count++;
             }, 1000);
         },
@@ -204,11 +205,10 @@ export default {
                 // console.log(this.search_list)
             })
         },
-        // 点击显示模糊查询面板
-        showPopup(){
-            // 搜索框获得焦点时
-            // this.comIsShow = false;  // 组件隐藏
-            // this.isShow = true;      // 弹出层显示
+        // 跳转到我的地址
+        address(){
+            this.$router.push('/address');
+            // window.sessionStorage.setItem('active',2);
         }
     },
 };
@@ -339,7 +339,7 @@ export default {
             flex-wrap: wrap;
             .image {
                 flex-basis: 3rem;
-                height: 3rem;
+                height: 3.5rem;
                 border-radius: 5px;
                 // margin-right: 0.1rem;
                 // padding: 10px;

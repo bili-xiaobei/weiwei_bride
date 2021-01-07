@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({
 }))
 
 
+app.get('/', function (req, res) {
+    res.send('Hello World')
+})
+
 
 app.use('/api/user', userRouter)
 app.use('/api/home', indexRouter)
@@ -40,6 +44,8 @@ app.listen(3000, () => {
 })
 
 // 部署
+// app.listen(process.env.PORT || 5050)
+
 // app.listen(5050, () => {
 //     console.log('Vue_project Runing...')
 // })

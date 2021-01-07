@@ -21,6 +21,7 @@
             class="navFooter"
             :active-color="navActive"
             :inactive-color="navInactive"
+            @change="tabChange(active)"
         >
             <van-tabbar-item icon="home-o">首页</van-tabbar-item>
             <van-tabbar-item icon="hot-o">美拍</van-tabbar-item>
@@ -40,6 +41,7 @@ import style from "../../public/css/_variable.scss";
 export default {
     created() {
         this.navActive = style.navColor;
+        this.active = parseInt(window.sessionStorage.getItem('active')) || 0;
     },
     mounted() {
         window.addEventListener("scroll", this.handleScroll); // 监听滚动的高度
@@ -124,6 +126,11 @@ export default {
                 false
             );
         },
+        // 获得目前激活的第一个底部导航
+        tabChange(val){
+            window.sessionStorage.setItem('active', val);
+            console.log(window.sessionStorage.getItem('active'));
+        }
     },
 };
 </script>

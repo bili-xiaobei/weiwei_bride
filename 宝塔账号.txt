@@ -1,0 +1,4 @@
+外网面板地址: http://188.131.145.204:8888/0b28a73c
+内网面板地址: http://172.21.0.10:8888/0b28a73c
+username: typfaimf
+password: 57a393de

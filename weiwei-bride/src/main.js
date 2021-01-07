@@ -3,9 +3,28 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+
+//设置axios为form-data
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.transformRequest = [function (data) {
+//     let ret = ''
+//     for (let it in data) {
+//       ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+//     }
+//     return ret
+// }]
+
+
+// var instance = axios.create({ headers: {'content-type': 'application/x-www-form-urlencoded'} });
+// Vue.prototype.$axios = instance;
 Vue.prototype.$axios = axios;
+
+// instance.post(`url`, params).then(res => res.data);
+
 axios.defaults.baseURL = '/api';
 import qs from 'qs';
+Vue.prototype.$qs = qs;
 
 // 清除标签默认样式
 import '../public/css/reset.css';
@@ -45,11 +64,29 @@ import {
   List,
   Sku,
   RadioGroup, Radio,
+  Toast,
+  Dialog,
+  Collapse, CollapseItem,
+  Area,
+AddressEdit,
+AddressList,
 
 } from 'vant';
 
 
 
+
+
+
+
+
+Vue.use(AddressList);
+Vue.use(AddressEdit);
+Vue.use(Area);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
+Vue.use(Dialog);
+Vue.use(Toast);
 Vue.use(Radio);
 Vue.use(RadioGroup);
 Vue.use(Sku);
@@ -86,6 +123,8 @@ Vue.use(Lazyload, {
   lazyComponent: true,
 });
 
+Vue.prototype.$Toast = Toast;
+Vue.prototype.$Dialog = Dialog;
 
 
 // -------------------------------------

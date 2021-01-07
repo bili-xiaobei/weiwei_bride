@@ -26,6 +26,29 @@ router.get('/good_all', (req, res) => {
     })
 })
 
+// 获取指定风格的商品
+router.get('/good_style/:style', (req, res) => {
+    mysql.query('select * from hs_goods where h_style=?', [req.params.style], (err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            res.send({
+                data: result,
+                meta: {
+                    code: 200,
+                    msg: '获取指定风格的商品成功'
+                }
+            })
+        } else {
+            res.send({
+                meta: {
+                    code: 400,
+                    msg: '获取指定风格的商品失败'
+                }
+            })
+        }
+    })
+})
+
 // 获取指定 id 的商品
 router.get('/good_hid/:hid', (req, res) => {
     mysql.query('select * from hs_goods where hid=?', [req.params.hid], (err, result) => {
@@ -80,7 +103,6 @@ router.get('/goods_limit/:pagenum&:pagesize', (req, res) => {
         }
     })
 })
-
 
 // 商品的模糊查询
 router.get('/search_like/:str', (req, res) => {
@@ -139,7 +161,7 @@ router.post('/add_goods', bp, (req, res) => {
 
 // 通过 hid 修改商品
 router.put('/update_goods_hid', bp, (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     mysql.query('update hs_goods set ? where hid=?', [req.body, req.body.hid], (err, result) => {
         if(err) throw err;
         if(result.affectedRows > 0){
@@ -154,7 +176,7 @@ router.put('/update_goods_hid', bp, (req, res) => {
     })
 })
 
-// 通过 hid 查询用户
+// 通过 hid 查询商品
 router.get('/search_goods_hid/:hid', (req, res) => {
     mysql.query('select * from hs_goods where hid=?', [req.params.hid], (err, result) => {
         if(err) throw err;
@@ -182,6 +204,92 @@ router.delete('/delete_goods_hid/:hid', (req, res) => {
         } else {
             res.send({
                 meta: { state: 400, msg: '删除失败' }
+            })
+        }
+    })
+})
+
+// 修改要购买商品的个数
+router.put('/update_goods_num', bp, (req, res) => {
+    // console.log(req.body);
+    mysql.query('update hs_shopcart set h_num=? where h_goods_id=?', [req.body.num, req.body.hid], (err, result) => {
+        if(err) throw err;
+        if(result.affectedRows > 0){
+            res.send({
+                meta: { state: 200, msg: '修改成功' }
+            })
+        } else {
+            res.send({
+                meta: { state: 400, msg: '修改失败' }
+            })
+        }
+    })
+})
+
+// 想购物车中添加商品
+router.get('/add_goods/:g_id', (req, res) => {
+    mysql.query('select h_goods_id from hs_shopcart where h_goods_id=?', [req.params.g_id], (err, result) => {
+        if(err) throw err;
+        if(result.length > 0) {
+            res.send({
+                code: 201,
+                msg: '购物车中已存在该商品'
+            })
+        } else {
+            mysql.query('insert into hs_shopcart(h_goods_id) values (?)', [req.params.g_id], (err, result) => {
+                if(err) throw err;
+                if(result.affectedRows > 0){
+                    res.send({
+                        code: 200,
+                        msg: '添加购物车成功'
+                    })
+                } else {
+                    res.send({
+                        code: 400,
+                        msg: '添加购物车失败'
+                    })
+                }
+            })
+        }
+    })
+})
+
+// 删除商品
+router.delete('/delete_goods/:g_id', (req, res) => {
+    mysql.query('delete from hs_shopcart where h_goods_id=?', [req.params.g_id], (err, result) => {
+        if(err) throw err;
+        if(result.affectedRows > 0){
+            res.send({
+                code: 200,
+                msg: '删除成功'
+            })
+        } else {
+            res.send({
+                code: 400,
+                msg: '删除失败'
+            })
+        }
+    })
+})
+
+// 要购买的单个的商品
+router.get('/buy_goods/:g_id', (req, res) => {
+    mysql.query('select * from hs_goods where h_goods_id=?', [req.params.g_id], (err, result) => {
+        if(err) throw err;
+        if(result.length > 0){
+            res.send({
+                data: result,
+                meta: {
+                    code: 200,
+                    msg: '购买单个商品'
+                }
+            })
+        } else {
+            res.send({
+                meta: {
+                    code: 400,
+                    msg: '购买单个商品失败'
+                }
             })
         }
     })
